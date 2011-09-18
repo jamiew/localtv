@@ -219,7 +219,7 @@ function geocode_callback(data, status){
   debug("YAY GEOCODE RESPONSE!", data);
 
   var coords = data.Placemark[0].Point.coordinates;
-  var radius = '10km';
+  var radius = '5mi';
 
   debug("GEOSEARCHING YOUTUBEZ....");
   geosearch_youtube(coords, radius);
@@ -229,11 +229,16 @@ function geosearch_youtube(coords, radius){
   debug("geosearch_youtube", coords, radius);
   var resultsCount = 50;
 
+  // var query = 'fun';
+  var query = 'fun';
+  debug(coords[1]+","+coords[0]);
+
   var url = 'http://gdata.youtube.com/feeds/videos?&alt=json-in-script' +
-            // '&orderby=relevance&sortorder=descending&max-results=' + resultsCount +
-            '&orderby=viewCount&sortorder=ascending&max-results=' + resultsCount +
+            // '&vq=' + query +
+            '&orderby=relevance&sortorder=descending&max-results=' + resultsCount +
+            // '&orderby=viewCount&sortorder=ascending&max-results=' + resultsCount +
             '&callback=geosearch_youtube_callback' +
-            '&location='+coords[1]+','+coords[0]+'&location-radius='+radius +
+            '&location='+coords[1]+','+coords[0]+'!&location-radius='+radius +
             '&format=5&fmt=18';
 
   var script = document.createElement('script');
@@ -244,6 +249,8 @@ function geosearch_youtube(coords, radius){
 }
 
 function geosearch_youtube_callback(resp){
+  debug(resp);
+
   if(resp.feed.entry == undefined) {
     set_query("No results, sorry dawg");
     show_search();
