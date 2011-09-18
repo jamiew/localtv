@@ -27,19 +27,19 @@ $(window).resize(redraw);
 
 
 function redraw() {
-  $('#player').css('height', $(window).height() + 'px');
-  $('#player').css('width', $(window).width() + 'px');
+  // $('#player').css('height', ($(window).height() * 0.5) + 'px');
+  // $('#player').css('width', ($(window).width() * 0.5) + 'px');
 
-  $('#background').css('height', $(window).height() + 'px');
-  $('#background').css('width', $(window).width() + 'px');
+  // $('#background').css('height', $(window).height() + 'px');
+  // $('#background').css('width', $(window).width() + 'px');
 
-  if (search_visible) {
-    $('#showme').css('top', ($('#search_wrapper').position().top - $('#showme').height() + 60) + 'px');
-  }
-  else {
-    $('#showme').css('top', ($(window).height() - $('#showme').height()) + 'px');
-  }
-  $('#showme').css('left', ($(window).width() / 2 - $('#showme').width() / 2) + 'px');
+  // if (search_visible) {
+  //   $('#showme').css('top', ($('#search_wrapper').position().top - $('#showme').height() + 60) + 'px');
+  // }
+  // else {
+  //   $('#showme').css('top', ($(window).height() - $('#showme').height()) + 'px');
+  // }
+  // $('#showme').css('left', ($(window).width() / 2 - $('#showme').width() / 2) + 'px');
 
   $('#search_wrapper').css('width', $(window).width() + 'px');
   $('#search_wrapper').css('top', $(window).height() / 2 - 243 / 2);
@@ -108,33 +108,23 @@ function toggle_search(){
 }
 
 function show_search(){
-
   if (search_visible){
     debug("show_search(): already visible but showing anyway");
     // return;
   }
 
-  $('#showme').animate({ top: ($('#search_wrapper').position().top - $('#showme').height() + 60) + 'px' }, 1500, 'easeOutElastic');
   $('#search').fadeIn('fast', function(){ $('#query').select(); });
-  $('#socialmedia').fadeIn('fast');
-  // $('#vhx_logo').fadeIn('fast');
+
   search_visible = true;
 }
 
 function hide_search(){
-  $('#background').css('background', 'transparent');
-  $('#background').css('height', '70%'); // Don't go all the way to the bottom -- allow YouTube ad to be closed
-  // $('#background').hide();
-
   if(!search_visible){
     return;
   }
 
-  $('#showme').animate({ top: ($(window).height() - $('#showme').height() + 10) + 'px'}, 1500, 'easeOutElastic');
   $('#query').blur();
   $('#search').fadeOut('slow');
-  $('#socialmedia').hide();
-  $('#vhx_logo').hide();
 
   search_visible = false;
 }
@@ -202,7 +192,6 @@ function submit_search(){
 }
 
 function execute_search(query){
-  $('#title').hide();
   $('#player').show();
   hide_search();
 
@@ -216,12 +205,11 @@ function geocode(address){
 }
 
 function geocode_callback(data, status){
-  debug("YAY GEOCODE RESPONSE!", data);
+  debug(">> geocode_callback()", data);
 
   var coords = data.Placemark[0].Point.coordinates;
   var radius = '15mi';
 
-  debug("GEOSEARCHING YOUTUBEZ....");
   geosearch_youtube(coords, radius);
 }
 
@@ -229,10 +217,8 @@ function geosearch_youtube(coords, radius){
   debug("geosearch_youtube", coords, radius);
   var resultsCount = 50;
 
-  // var query = 'fun';
-  var query = 'fun';
   debug(coords[1]+","+coords[0]);
-
+  // var query = 'fun';
   var url = 'http://gdata.youtube.com/feeds/videos?&alt=json-in-script' +
             // '&vq=' + query +
             // '&orderby=relevance&sortorder=descending&max-results=' + resultsCount +
@@ -244,12 +230,11 @@ function geosearch_youtube(coords, radius){
   var script = document.createElement('script');
   script.setAttribute('type', 'text/javascript');
   script.setAttribute('src', url);
-  debug("LOL OK THINGS ARE GOOD");
   document.documentElement.firstChild.appendChild(script);
 }
 
 function geosearch_youtube_callback(resp){
-  debug(resp);
+  debug(">> geosearch_youtube_callback()", resp);
 
   if(resp.feed.entry == undefined) {
     set_query("No results, sorry dawg");
@@ -259,6 +244,9 @@ function geosearch_youtube_callback(resp){
 
   var urls = $.map(resp.feed.entry, function(entry,i){ return {url: entry.link[0].href}; });
   debug(">> search_youtube_callback(): loading "+urls.length+" videos...");
+
+  $('#player').show();
+  $('#player').css('z-index', 6); // hmm
 
   urls = shuffle(urls);
   return megaplaya.api_playQueue(urls);
