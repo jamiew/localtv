@@ -1,17 +1,15 @@
-## SHOW ME _x_ NON STOP
+## LOCALTV (work-in-progress)
 
-Endlessly plays videos based on your search term
+Grab geolocated YouTube videos with low viewcounts and turn them into Internet public access TV using the VHX.TV player
 
-View it online: <http://showmenonstop.com>
+View this app online: <http://jamiedubs.com/localtv>
 
-Built with <http://vhx.tv> and <http://youtube.com> for NYC's inaugural [Video Hackday](http://nyc.hackday.tv)
+Based on [showmenonstop.com](http://github.com/jamiew/nonstoptv)
 
 
 ## Authors
 
 * [Jamie Dubs](http://jamiedubs.com)
-* [Chad Pugh](http://thebigpugh.com)
-* [Casey Pugh](http://caseypugh.com)
 
 
 ## License
