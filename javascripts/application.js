@@ -246,7 +246,7 @@ function geosearch_youtube_callback(resp){
   debug(">> search_youtube_callback(): loading "+urls.length+" videos...");
 
   $('#player').show();
-  $('#player').css('z-index', 6); // hmm
+  $('#player').css('z-index', 10);
 
   urls = shuffle(urls);
   return megaplaya.api_playQueue(urls);
