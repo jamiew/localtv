@@ -219,7 +219,7 @@ function geocode_callback(data, status){
   debug("YAY GEOCODE RESPONSE!", data);
 
   var coords = data.Placemark[0].Point.coordinates;
-  var radius = '5mi';
+  var radius = '15mi';
 
   debug("GEOSEARCHING YOUTUBEZ....");
   geosearch_youtube(coords, radius);
@@ -235,8 +235,8 @@ function geosearch_youtube(coords, radius){
 
   var url = 'http://gdata.youtube.com/feeds/videos?&alt=json-in-script' +
             // '&vq=' + query +
-            '&orderby=relevance&sortorder=descending&max-results=' + resultsCount +
-            // '&orderby=viewCount&sortorder=ascending&max-results=' + resultsCount +
+            // '&orderby=relevance&sortorder=descending&max-results=' + resultsCount +
+            '&orderby=viewCount&sortorder=ascending&max-results=' + resultsCount +
             '&callback=geosearch_youtube_callback' +
             '&location='+coords[1]+','+coords[0]+'!&location-radius='+radius +
             '&format=5&fmt=18';
