@@ -76,7 +76,7 @@ html, body, #container, #header, #main { margin: 0; padding: 0; }
 
 #search_wrapper { position: absolute; z-index: 100; text-align: center; }
 #showme { position: absolute; z-index: 200; cursor: pointer; width: 164px; }
-#search input#query { border: 2px solid #ccc; width: 600px; color: #555; text-align: center; font-size: 60pt; padding: 10px; font-family: 'Open Sans Condensed', sans-serif; margin-right: 250px; }
+#search input#query { border: 2px solid #ccc; width: 600px; color: #555; text-align: center; font-size: 60pt; padding: 10px; font-family: 'Open Sans Condensed', sans-serif; margin-left: 85px; }
 #search input#submit { display: none; }
 
 input::-moz-focus-inner, button::-moz-focus-inner { border: 0; outline: none; }
